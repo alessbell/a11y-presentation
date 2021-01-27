@@ -6,7 +6,7 @@ import Image from "next/image";
 
 # Web a11y
 
-Front-end Knowledge Exchange (Jan '21)
+Front-end Knowledge Exchange, Jan '21
 
 </Cover>
 
@@ -26,7 +26,9 @@ First, let's make sure we have a shared definition of a11y.
 
 ---
 
-Web accessibility means that people with disabilities can **use** and **understand** the web
+# 1. What is `a11y`?
+
+**Web accessibility** means that **people with disabilities** can **use** and **understand** the web
 
 ---
 
@@ -34,11 +36,15 @@ Web accessibility means that people with disabilities can **use** and **understa
 
 1. It's a basic human right
 1. It's required by law
-1. It's good for business
+1. It's good for business ([WCAG business case](https://www.w3.org/WAI/business-case/#is-there-a-business-case-for-accessibility))
+1. It's good UX
 
 <SpeakerNotes>
 
-The United Nations Convention on the Rights of Persons with Disabilities (CRPD) is an international human rights treaty. The CRPD defines access to technology like the Web as a basic human right.
+Front-end engineers already have a lot on our plates:
+
+- a lot of new stuff to keep up with, JS/TS language features + browser features, new testing frameworks, new patterns...
+- why do we need to be concerned with a11y too?
 
 </SpeakerNotes>
 
@@ -46,45 +52,185 @@ The United Nations Convention on the Rights of Persons with Disabilities (CRPD) 
 
 <Image
   src="/laineyFeingold.png"
-  alt="Picture of the author"
-  width={800}
-  height={500}
+  alt="Screenshot of a Lainey Feingold firm's blogpost on a11y court cases"
+  layout="fill"
 />
 
 ---
 
-Basics:
+## It's required by law (cont'd)
 
-- announce dynamic content: aria-live
+> Today, internet technology enables individuals to participate actively in their community and engage in commerce from the comfort and convenience of their home. It would be a cruel irony to adopt the interpretation of the ADA espoused by Blick, which would render the legislation intended to emancipate the disabled from the bonds of isolation and segregation obsolete when its objective is increasingly within reach.
+>
+> <cite>
+>   EDNY Judge Jack Weinstein in Andrews v. Blick Art Materials, 2017 (
+>   <a href="https://www.lflegal.com/2017/08/ny-web-cases/" target="_blank">
+>     source
+>   </a>
+>   )
+> </cite>
+
+<SpeakerNotes>
+Human rights:
+The United Nations Convention on the Rights of Persons with Disabilities (CRPD) is an international human rights treaty. The CRPD defines access to technology like the Web as a basic human right.
+
+Required by law:
+Americans with Disabilities Act (ADA) - it has been reaffirmed in the courts as applying to websites time and time again
+
+</SpeakerNotes>
+
+---
+
+## It's good UX
+
+<Image
+  src="/microsofta11y.png"
+  alt="Infographic on permanent/temporary/situational gradations of mobility/ability"
+  layout="intrinsic"
+  width="650 "
+  height="1000"
+/>
+
+---
+
+<Image
+  src="/googlemaps.gif"
+  alt="Gif of google maps one-handed zoom"
+  layout="intrinsic"
+  width="500 "
+  height="1000"
+/>
+
+<SpeakerNotes>
+One of my favorite examples of good a11y resulting in better experience for everyone is [Google Maps](https://support.google.com/maps/answer/6396990?co=GENIE.Platform%3DAndroid&hl=en)
+
+There are disabled folks for whom this app would be pretty useless if zooming in/out could only be achieved by pinching
+
+But I use this all the time if I'm carrying heavy groceries for example and trying to navigate one-handed, or a new parent as we saw in the previous slide
+
+</SpeakerNotes>
+
+---
+
+# 2. `a11y` basics
+
+---
+
+## The World Wide Web Consortium ([W3C](https://www.w3.org/)) maintains the Web Content Accessibility Guidelines ([WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/))
+
+---
+
+- The goal of WCAG is to provide a single shared standard for web accessibility
+
+- The latest standard is **WCAG 2.1**
+
+- **WCAG 2.2** is scheduled to be published in 2021 ([what's new](https://www.w3.org/WAI/standards-guidelines/wcag/new-in-22/))
+
+- WCAG is a **technical standard**, not an introduction to accessibility
+
+- [WCAG 2.1 focuses on four guiding principles, "**POUR**"](https://www.w3.org/WAI/standards-guidelines/wcag/glance/)
+  - PERCEIVABLE
+  - OPERABLE
+  - UNDERSTANDABLE
+  - ROBUST
+
+<SpeakerNotes>
+  - The latest standard is **WCAG 2.1**, published on June 5, 2018
+</SpeakerNotes>
+
+---
+
+<Image
+  src="/POUR.png"
+  alt="WCAG 2.1 at a glance"
+  layout="intrinsic"
+  width="1250"
+  height="1000"
+/>
+
+<SpeakerNotes>
+
+- Perceivable: Users must be able to perceive the information being presented. It cannot be imperceptible to all their senses
+- Operable: Users must be able to operate the interface. The interface cannot require interaction that a user cannot perform
+- Understandable: Users must be able to understand the information as well as the operation of the user interface. The content or operation cannot be beyond their understanding
+- Robust: Users must be able to access content as technologies advance. As technologies and user agents evolve, the content should remain accessible
+
+</SpeakerNotes>
+
+---
+
+## "HTML is accessible by default"
+
+<SpeakerNotes>Who has heard this before?</SpeakerNotes>
+
+---
+
+## Maybe we don't need JS? 🧐
+
+---
+
+## Should your site work without javascript?
+
+Many examples of good accessibility practices from the WCAG standard itself contain JS!
+
+JS is necessary to build great + accessible sites
+
+---
+
+Basics/"low hanging fruit":
+
+- https://a11y.coffee/quick-wins/#4-missing-form-input-labels
 - focus order
 - links vs. buttons??? `role="button"` (https://accessibility-manual.dwp.gov.uk/guidance-for-your-job-role/software-engineer-or-frontend-developer)
 - heading hierarchy
 - inputs + labels
 - keyboard focus
 - links make sense out of context
--
 
 ---
 
-> Inscrutable icons litter the face of the devices even though the research
-> community has long demonstrated that people cannot remember the meaning of
-> more than a small number of icons […] Who can remember what each icon
-> means? Not me.
->
-> <cite>Don Norman</cite>
+Advanced topics:
+
+- Sessions (unexpectedly logging users out)
+- Trap focus in modals
+- Announce dynamic content: aria-live
 
 ---
 
-# 🤫
+<Image
+  src="/aweary1.png"
+  alt="Tweet from @aweary"
+  layout="intrinsic"
+  width="900"
+  height="950"
+/>
 
 ---
 
-## Slides are written in MDX!
+# 3. How to test `a11y`
 
-And code is highlighted using `react-syntax-highlighter`.
+---
 
-```js
-const variable = someFunction();
-```
+- Automatically detecting a11y errors:
+  - only 25-35% of web a11y issues can be automatically detected: https://webaim.org/projects/million/
+
+---
+
+# Barriers to shipping accessible web apps
+
+## via Amberley Romo @ amberley.dev ([source](https://amberley.dev/blog/2020-02-05-gatsby-days-la-a11y-unconference-notes/))
+
+- Remembering to use tools in the development process
+- Deciding what "good enough" means
+- Too many ambiguous and distributed sources of information
+
+<SpeakerNotes>
+
+- As a developer without disabilities, they have direct visual feedback in the course of developing -- remembering to test and bring it outside perspectives.
+- Sometimes we think a site/experience is inaccessible, when the issue might be a developer's lack of familiarity/dexterity with a11y tools like screen readers
+- There aren't any complete resources for what makes something accessible, because it's so nuanced
+- The standards say what something should do, but not how, the path is not always clear
+
+</SpeakerNotes>
 
 </SlidePage>
