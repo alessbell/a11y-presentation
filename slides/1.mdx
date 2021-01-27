@@ -49,6 +49,8 @@ testing: how to we build an accessible web as we're developing, and how do we ke
 
 <SpeakerNotes>
 
+Human rights: The United Nations Convention on the Rights of Persons with Disabilities (CRPD) is an international human rights treaty. The CRPD defines access to technology like the Web as a basic human right.
+
 Many of us on this call may already be convinced of the benefits of good accessibility practices, but it's important to understand what the stakes are
 
 Front-end engineers, we already have a lot on our plates:
@@ -228,16 +230,6 @@ But I use this all the time if I'm carrying heavy groceries for example and tryi
 
 ---
 
-<Image
-  src="/VenmoHomepageWAVE.png"
-  alt="Venmo Homepage WAVE Audit Results"
-  layout="intrinsic"
-  width="1250"
-  height="800"
-/>
-
----
-
 # Barriers to shipping accessible web apps
 
 ## via Amberley Romo @ amberley.dev ([source](https://amberley.dev/blog/2020-02-05-gatsby-days-la-a11y-unconference-notes/))
@@ -291,7 +283,17 @@ But I use this all the time if I'm carrying heavy groceries for example and tryi
 
 ---
 
-## Many examples of good accessible design patterns practices from the WCAG contain JS!
+<Image
+  src="/disabledJS.png"
+  alt="aweary counterpoint"
+  layout="intrinsic"
+  width="700"
+  height="800"
+/>
+
+---
+
+## Many examples of good accessible design patterns from the WCAG contain JS!
 
 **JavaScript is essential for many accessible patterns. Misusing it is the problem, just like with HTML.**
 
@@ -338,39 +340,70 @@ accordion.addEventListener("keydown", function (event) {
 
 ---
 
-```js
-// Up/ Down arrow and Control + Page Up/ Page Down keyboard operations
-else if (key.match(/35|36/)) {
-      // 35 = End, 36 = Home keyboard operations
-      switch (key) {
-        // Go to first accordion
-        case "36":
-          triggers[0].focus();
-          break;
-        // Go to last accordion
-        case "35":
-          triggers[triggers.length - 1].focus();
-          break;
-      }
-      event.preventDefault();
-    }
+# Quick wins
+
+## (src: [a11y.coffee](https://a11y.coffee/quick-wins/))
+
+- low contrast
+  - detected on 86.3% of home pages in February 2020
+- missing alt text for images
+  - detected on 66.3% of home pages in February 2020
+
+```html
+<img src="./feature-image" />
 ```
 
 ---
 
-Basics/"low hanging fruit":
+## Quick wins, cont'd
 
-- https://a11y.coffee/quick-wins/#4-missing-form-input-labels
-- focus order
-- links vs. buttons??? `role="button"` (https://accessibility-manual.dwp.gov.uk/guidance-for-your-job-role/software-engineer-or-frontend-developer)
-- heading hierarchy (why? so users can scan the headings to zoom in on what they're looking for/care about)
-- inputs + labels
-- keyboard focus
-- links make sense out of context
+- empty links
+  - detected on 59.9% of home pages in February 2020
+
+```html
+<a href="http://www.twitter.com/washingtonpost">
+  <span class="fa fa-twitter"></span>
+</a>
+```
+
+- missing form input labels
+  - detected on 53.8% of home pages in February 2020
+
+```html
+<div>
+  Name:
+  <label for="name">Name:</label>
+  <input type="text" name="name" />
+</div>
+```
 
 ---
 
-Advanced topics:
+## Next steps:
+
+- logical focus order
+  - a logical order means the focus is always moving left to right and top to bottom within each section, and left to right and top to bottom between each section
+- correct roles
+  - links that look like buttons
+
+```html
+<a href="/apply-now" class="btn" role="button">Apply now</a>
+```
+
+- correct heading hierarchy so the page is "skimmable" for screenreader users
+- focus is visible via keyboard navigation
+- links make sense out of context
+
+<SpeakerNotes>
+- Links should navigate between pages and buttons should interact with data, such as submitting a form
+- However there might be some instances where research shows that a link needs to be more visible, such as a call to action.
+- By giving the link a role of button, it can now be determined to be a button. So if somebody is using voice recognition software such as Dragon, when they say “click button”, Dragon will be able to find it on the page.
+
+</SpeakerNotes>
+
+---
+
+# Advanced topics:
 
 - Sessions (unexpectedly logging users out)
 - Trap focus in modals
@@ -379,25 +412,172 @@ Advanced topics:
   - Without page refreshes, screen reader users may not be informed that the page has changed
   - On client-side page transitions, focus to the top of the application (i.e. a parent wrapper element) to mimic a traditional browser refresh and announce new content in assistive technology
 
---
+---
 
 # 3. How to test `a11y`
 
 ---
 
-# Tools for automatic error detection:
+## My personal favorite overview of a11y testing methods available:
 
-- Axe,
-  ... etc
+## ["Accessibility Testing is like Making Coffee" by Madalyn Parker](https://madalyn.dev/blog/a11y-testing-coffee/)
 
 ---
 
-https://madalyn.dev/blog/a11y-testing-coffee/
+<Image
+  src="/a11ycoffee1.png"
+  alt="Infographic on a11y testing"
+  layout="intrinsic"
+  width="800"
+  height="600"
+/>
+
+---
+
+## Automated Testing Tools:
+
+- jsx-a11y, @axe-core/react
+- axe
+- Lighthouse
+- Accessibility Insights
+- WAVE Web Accessibility Evaluation Tool created by WebAIM
+
+<SpeakerNotes>
+
+- jsx-a11y, @axe-core/react
+  - linters and code formatters that statically analyze our source code
+- axe
+  - this is what sits under most automated tooling. You can leverage it directly in your code using the axe-core API or use their browser extensions to run on rendered pages.
+- Lighthouse includes accessibility auditing and runs axe.
+  - It’s shipped right in Chrome DevTools and also has a CI integration you can add to your pipeline.
+- Accessibility Insights is my all time favorite accessibility testing tool.
+  - It’s built by Microsoft and has versions for Android, web, and Windows. I’ll be talking about their Chrome extension, which also uses axe, but all of these are top notch amazing for auditing.
+- WAVE Web Accessibility Evaluation Tool is created by WebAIM.
+  - They have their own API and this tool can either be run from their website or as a browser extension.
+
+</SpeakerNotes>
+
+---
+
+<Image
+  src="/a11ycoffee2.png"
+  alt="Infographic on a11y testing"
+  layout="intrinsic"
+  width="800"
+  height="600"
+/>
+
+---
+
+## Semi-Automated Testing Tools:
+
+- WAVE Tool (again!) because:
+  - its “Alerts” section flags potential violations
+  - it surfaces all elements using WAI-ARIA
+  - it shows page structure with Headings and Landmarks
+- Accessibility Insights (also again!) because:
+  - its “Tab Stops” feature requires you to actually tab through the page manually
+  - its “Ad hoc tools” surface structure similarly to the WAVE tool
+- Integration Tests can be used to run a11y checks, interact with the UI, and run them again, verify that focus is where it should be (e.g. is it moved to the modal when the modal is opened?)
+  - pa11y
+  - cypress-axe
+  - nightwatch-axe ([Webmo PR](https://github.braintreeps.com/venmo/webmo/pull/73/files))
+
+<SpeakerNotes>
+
+- WAVE Tool (again!) because:
+  - its “Alerts” section flags potential
+    violations
+  - it surfaces all elements using WAI-ARIA, which needs to be used
+    mindfully and intentionally and should always be looked at critically
+  - it shows page structure with Headings and Landmarks but leaves it up to you to
+    determine whether they meet standards
+- Accessibility Insights (also again!)
+  because:
+  - its “Tab Stops” feature requires you to actually tab through the
+    page manually to verify that tab order follows both reading order and DOM
+    order
+  - its “Ad hoc tools” surface structure similarly to the WAVE tool
+- Integration Tests can be used to run a11y checks, interact with the UI, and
+  run them again, verify that focus is where it should be (e.g. is it moved to
+  the modal when the modal is opened?)
+  - pa11y
+  - cypress-axe
+  - nightwatch-axe
+
+</SpeakerNotes>
+
+---
+
+<Image
+  src="/VenmoHomepageWAVE.png"
+  alt="Venmo Homepage WAVE Audit Results"
+  layout="intrinsic"
+  width="1250"
+  height="800"
+/>
+
+---
+
+<Image
+  src="/a11ycoffee3.png"
+  alt="Infographic on a11y testing"
+  layout="intrinsic"
+  width="800 "
+  height="600"
+/>
+
+---
+
+# Manual Testing
 
 - navigating with your keyboard
-- using a screen reader: skimming https://web.archive.org/web/20160916181038/http://webaim.org/techniques/screenreader#linearization
+- using a screen reader
 - turning your screen magnification way up (300%+)
 - using a site with audio muted
 - verifying that the prefers reduced motion setting is respected
+
+<SpeakerNotes>
+  WAI ARIA: Web Accessibility Initiative - Accessible Rich Internet Applications
+</SpeakerNotes>
+
+---
+
+# Resources:
+
+## Getting set up to test
+
+- https://madalyn.dev/blog/manual-a11y-testing-setup/
+- https://madalyn.dev/blog/5-things-a11y-keyboard-testing/
+- https://madalyn.dev/blog/a11y-testing-coffee/
+- https://a11y.coffee/start-testing/
+
+---
+
+## ARIA
+
+- https://w3c.github.io/using-aria/
+- https://dev.opera.com/articles/introduction-to-wai-aria/
+- https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA
+- https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles
+- https://egghead.io/lessons/aria-accessible-icon-buttons
+
+<SpeakerNotes>
+  - WAI ARIA: Web Accessibility Initiative - Accessible Rich Internet
+  Applications
+  - Became a completed W3C Recommendation in March 2014
+  - specifies how to increase the accessibility of web pages, in particular, dynamic content, and user interface components developed with Ajax, HTML, JavaScript, and related technologies.
+
+</SpeakerNotes>
+
+---
+
+## Designing for Screen Reader Compatibility
+
+- https://web.archive.org/web/20160916181038/http://webaim.org/techniques/screenreader#linearization
+
+## How to be a keyboard a11y super hero
+
+- https://web.archive.org/web/20160325182436/http://simplyaccessible.com/article/keyboard-superhero/
 
 </SlidePage>
