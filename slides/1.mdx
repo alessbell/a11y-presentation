@@ -1,0 +1,90 @@
+import Image from "next/image";
+
+<SlidePage>
+
+<Cover>
+
+# Web a11y
+
+Front-end Knowledge Exchange (Jan '21)
+
+</Cover>
+
+---
+
+## Overview
+
+1. What is `a11y`?
+1. `a11y` basics
+1. How to test a11y
+
+<SpeakerNotes>
+
+First, let's make sure we have a shared definition of a11y.
+
+</SpeakerNotes>
+
+---
+
+Web accessibility means that people with disabilities can **use** and **understand** the web
+
+---
+
+## Why?
+
+1. It's a basic human right
+1. It's required by law
+1. It's good for business
+
+<SpeakerNotes>
+
+The United Nations Convention on the Rights of Persons with Disabilities (CRPD) is an international human rights treaty. The CRPD defines access to technology like the Web as a basic human right.
+
+</SpeakerNotes>
+
+---
+
+<Image
+  src="/laineyFeingold.png"
+  alt="Picture of the author"
+  width={800}
+  height={500}
+/>
+
+---
+
+Basics:
+
+- announce dynamic content: aria-live
+- focus order
+- links vs. buttons??? `role="button"` (https://accessibility-manual.dwp.gov.uk/guidance-for-your-job-role/software-engineer-or-frontend-developer)
+- heading hierarchy
+- inputs + labels
+- keyboard focus
+- links make sense out of context
+-
+
+---
+
+> Inscrutable icons litter the face of the devices even though the research
+> community has long demonstrated that people cannot remember the meaning of
+> more than a small number of icons […] Who can remember what each icon
+> means? Not me.
+>
+> <cite>Don Norman</cite>
+
+---
+
+# 🤫
+
+---
+
+## Slides are written in MDX!
+
+And code is highlighted using `react-syntax-highlighter`.
+
+```js
+const variable = someFunction();
+```
+
+</SlidePage>

@@ -1,0 +1,1 @@
+{"ast":null,"code":"import React from 'react';\nexport const TotalPagesContext = /*#__PURE__*/React.createContext(0);\nexport const useTotalPages = () => React.useContext(TotalPagesContext);","map":null,"metadata":{},"sourceType":"module"}

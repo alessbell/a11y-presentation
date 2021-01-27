@@ -1,0 +1,1 @@
+{"ast":null,"code":"import { jsx as _jsx } from \"react/jsx-runtime\";\nimport React from 'react';\nimport styled from 'styled-components';\nconst StyledCover = styled.div``;\nexport default function Cover({\n  children\n}) {\n  return /*#__PURE__*/_jsx(StyledCover, {\n    children: children\n  });\n}","map":null,"metadata":{},"sourceType":"module"}

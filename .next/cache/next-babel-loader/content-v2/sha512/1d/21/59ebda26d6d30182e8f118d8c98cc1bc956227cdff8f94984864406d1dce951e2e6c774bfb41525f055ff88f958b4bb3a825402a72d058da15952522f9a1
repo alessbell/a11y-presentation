@@ -1,0 +1,1 @@
+{"ast":null,"code":"export const siteConfig = {\n  name: `Alessia Bellisario`,\n  title: `Web a11y: Front-end Knowledge Exchange`,\n  date: `January 24, 2021`,\n  author: {\n    url: `https://twitter.com/alessbell`\n  }\n};\nexport default siteConfig;","map":null,"metadata":{},"sourceType":"module"}
