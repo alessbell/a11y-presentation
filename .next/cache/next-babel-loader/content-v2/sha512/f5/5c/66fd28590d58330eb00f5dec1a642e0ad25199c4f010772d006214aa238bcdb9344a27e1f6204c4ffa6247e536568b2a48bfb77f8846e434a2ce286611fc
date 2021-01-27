@@ -1,1 +1,0 @@
-{"ast":null,"code":"import { jsx as _jsx } from \"react/jsx-runtime\";\nimport React, { useEffect } from 'react';\nimport { useRouter } from 'next/router';\nexport default function index() {\n  var router = useRouter();\n  useEffect(function () {\n    router.replace('/slides/1');\n  });\n  return /*#__PURE__*/_jsx(\"div\", {});\n}","map":null,"metadata":{},"sourceType":"module"}
