@@ -4,7 +4,7 @@ import Image from "next/image";
 
 <Cover>
 
-# Web a11y
+# Intro to Web a11y
 
 Front-end Knowledge Exchange, Jan '21
 
@@ -12,7 +12,7 @@ Front-end Knowledge Exchange, Jan '21
 
 ---
 
-## Overview
+# Overview
 
 1. What is `a11y`?
 1. `a11y` basics
@@ -22,6 +22,12 @@ Front-end Knowledge Exchange, Jan '21
 
 First, let's make sure we have a shared definition of a11y.
 
+What is accessibility as a concept? What does it mean on the web?
+
+a11y basics + best practices
+
+testing: how to we build an accessible web as we're developing, and how do we keep it that way and prevent regressions?
+
 </SpeakerNotes>
 
 ---
@@ -29,6 +35,8 @@ First, let's make sure we have a shared definition of a11y.
 # 1. What is `a11y`?
 
 **Web accessibility** means that **people with disabilities** can **use** and **understand** the web
+
+<SpeakerNotes>Numeronym for accessibility</SpeakerNotes>
 
 ---
 
@@ -41,10 +49,14 @@ First, let's make sure we have a shared definition of a11y.
 
 <SpeakerNotes>
 
-Front-end engineers already have a lot on our plates:
+Many of us on this call may already be convinced of the benefits of good accessibility practices, but it's important to understand what the stakes are
 
-- a lot of new stuff to keep up with, JS/TS language features + browser features, new testing frameworks, new patterns...
+Front-end engineers, we already have a lot on our plates:
+
+- a lot of new stuff to keep up with, JS language features + browser APIs, new testing frameworks, new patterns...
 - why do we need to be concerned with a11y too?
+
+- It's important that we don't violate anyone's human rights, that we meet our legal obligations, that we maximize our total adressable market + customer base, but it also improves the experience for all users regardless of ability
 
 </SpeakerNotes>
 
@@ -53,7 +65,9 @@ Front-end engineers already have a lot on our plates:
 <Image
   src="/laineyFeingold.png"
   alt="Screenshot of a Lainey Feingold firm's blogpost on a11y court cases"
-  layout="fill"
+  layout="intrinsic"
+  width="1200"
+  height="800"
 />
 
 ---
@@ -71,6 +85,9 @@ Front-end engineers already have a lot on our plates:
 > </cite>
 
 <SpeakerNotes>
+
+The web is this amazing utility that allows us to connect in communities, engage in commerce - this judge is saying "why would we exclude the web from meeting this burden of accessibility when it's increasingly within reach?"
+
 Human rights:
 The United Nations Convention on the Rights of Persons with Disabilities (CRPD) is an international human rights treaty. The CRPD defines access to technology like the Web as a basic human right.
 
@@ -87,8 +104,8 @@ Americans with Disabilities Act (ADA) - it has been reaffirmed in the courts as 
   src="/microsofta11y.png"
   alt="Infographic on permanent/temporary/situational gradations of mobility/ability"
   layout="intrinsic"
-  width="650 "
-  height="1000"
+  width="500 "
+  height="800"
 />
 
 ---
@@ -97,14 +114,17 @@ Americans with Disabilities Act (ADA) - it has been reaffirmed in the courts as 
   src="/googlemaps.gif"
   alt="Gif of google maps one-handed zoom"
   layout="intrinsic"
-  width="500 "
-  height="1000"
+  width="450 "
+  height="900"
 />
 
 <SpeakerNotes>
 One of my favorite examples of good a11y resulting in better experience for everyone is [Google Maps](https://support.google.com/maps/answer/6396990?co=GENIE.Platform%3DAndroid&hl=en)
 
-There are disabled folks for whom this app would be pretty useless if zooming in/out could only be achieved by pinching
+This makes the UX better for everyone:
+
+- disabled folks who would otherwise be permanently unable to use this app without this feature
+- people who temporarily or situationally find themselves benefitting from this UX pattern
 
 But I use this all the time if I'm carrying heavy groceries for example and trying to navigate one-handed, or a new parent as we saw in the previous slide
 
@@ -114,9 +134,13 @@ But I use this all the time if I'm carrying heavy groceries for example and tryi
 
 # 2. `a11y` basics
 
+## (that aren't always so basic)
+
 ---
 
-## The World Wide Web Consortium ([W3C](https://www.w3.org/)) maintains the Web Content Accessibility Guidelines ([WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/))
+## The **World Wide Web Consortium** ([W3C](https://www.w3.org/)) maintains the
+
+## **Web Content Accessibility Guidelines** ([WCAG](https://www.w3.org/WAI/standards-guidelines/wcag/))
 
 ---
 
@@ -128,15 +152,29 @@ But I use this all the time if I'm carrying heavy groceries for example and tryi
 
 - WCAG is a **technical standard**, not an introduction to accessibility
 
+<SpeakerNotes>
+  - The latest standard is **WCAG 2.1**, published on June 5, 2018
+</SpeakerNotes>
+
+---
+
+# Design Patterns and Widgets ([src](https://www.w3.org/TR/wai-aria-practices-1.1/#aria_ex))
+
+<Image
+  src="/designPatterns.png"
+  alt="WCAG 2.1 at a glance"
+  layout="intrinsic"
+  width="1250"
+  height="800"
+/>
+
+---
+
 - [WCAG 2.1 focuses on four guiding principles, "**POUR**"](https://www.w3.org/WAI/standards-guidelines/wcag/glance/)
   - PERCEIVABLE
   - OPERABLE
   - UNDERSTANDABLE
   - ROBUST
-
-<SpeakerNotes>
-  - The latest standard is **WCAG 2.1**, published on June 5, 2018
-</SpeakerNotes>
 
 ---
 
@@ -144,8 +182,8 @@ But I use this all the time if I'm carrying heavy groceries for example and tryi
   src="/POUR.png"
   alt="WCAG 2.1 at a glance"
   layout="intrinsic"
-  width="1250"
-  height="1000"
+  width="1000"
+  height="800"
 />
 
 <SpeakerNotes>
@@ -159,60 +197,44 @@ But I use this all the time if I'm carrying heavy groceries for example and tryi
 
 ---
 
-## "HTML is accessible by default"
+# State of the web: [The WebAIM Million](https://webaim.org/projects/million/)
 
-<SpeakerNotes>Who has heard this before?</SpeakerNotes>
+<Image
+  src="/WCAGConformance1.png"
+  alt="Number of homepages with WCAG errors in audit"
+  layout="intrinsic"
+  width="800"
+  height="550"
+/>
 
----
-
-## Maybe we don't need JS? 🧐
-
----
-
-## Should your site work without javascript?
-
-Many examples of good accessibility practices from the WCAG standard itself contain JS!
-
-JS is necessary to build great + accessible sites
-
----
-
-Basics/"low hanging fruit":
-
-- https://a11y.coffee/quick-wins/#4-missing-form-input-labels
-- focus order
-- links vs. buttons??? `role="button"` (https://accessibility-manual.dwp.gov.uk/guidance-for-your-job-role/software-engineer-or-frontend-developer)
-- heading hierarchy
-- inputs + labels
-- keyboard focus
-- links make sense out of context
-
----
-
-Advanced topics:
-
-- Sessions (unexpectedly logging users out)
-- Trap focus in modals
-- Announce dynamic content: aria-live
+<SpeakerNotes>
+  An accessibility analysis of the top 1,000,000 home pages, Interior pages are
+  about the same
+</SpeakerNotes>
 
 ---
 
 <Image
-  src="/aweary1.png"
-  alt="Tweet from @aweary"
+  src="/WCAGConformance2.png"
+  alt="Number of homepages with WCAG errors in audit"
   layout="intrinsic"
-  width="900"
-  height="950"
+  width="950"
+  height="500"
 />
 
 ---
 
-# 3. How to test `a11y`
+> All automated tools, including WAVE, have limitation—only 25% to 35% of possible conformance failures can be automatically detected. Absence of detectable errors does not indicate that a site is accessible or compliant.
 
 ---
 
-- Automatically detecting a11y errors:
-  - only 25-35% of web a11y issues can be automatically detected: https://webaim.org/projects/million/
+<Image
+  src="/VenmoHomepageWAVE.png"
+  alt="Venmo Homepage WAVE Audit Results"
+  layout="intrinsic"
+  width="1250"
+  height="800"
+/>
 
 ---
 
@@ -232,5 +254,150 @@ Advanced topics:
 - The standards say what something should do, but not how, the path is not always clear
 
 </SpeakerNotes>
+
+---
+
+<Image
+  src="/aweary1.png"
+  alt="Tweet from @aweary"
+  layout="intrinsic"
+  width="800"
+  height="850"
+/>
+
+---
+
+## "HTML is accessible by default"
+
+<SpeakerNotes>Who has heard this before?</SpeakerNotes>
+
+---
+
+## Maybe we don't need JS? 🧐
+
+<SpeakerNotes>Should our site work without JavaScript?</SpeakerNotes>
+
+---
+
+<Image
+  src="/BBC.png"
+  alt="BBC a11y docs: must work without JS"
+  layout="intrinsic"
+  width="1200"
+  height="500"
+/>
+
+[source: BBC front-end developer guidelines](https://accessibility-manual.dwp.gov.uk/guidance-for-your-job-role/software-engineer-or-frontend-developer#no-reliance-on-javascript)
+
+---
+
+## Many examples of good accessible design patterns practices from the WCAG contain JS!
+
+**JavaScript is essential for many accessible patterns. Misusing it is the problem, just like with HTML.**
+
+<SpeakerNotes>
+  Context: it dependsTM -- some government sites must be accessible without JS
+  and often have to deal with the most constraints
+</SpeakerNotes>
+
+---
+
+<Image
+  src="/wcagAccordions.gif"
+  alt="WCAG example with javascript"
+  layout="intrinsic"
+  width="500"
+  height="800"
+/>
+
+[source](https://www.w3.org/TR/wai-aria-practices-1.1/examples/accordion/accordion.html)
+
+---
+
+```js
+// Bind keyboard behaviors on the main accordion container
+accordion.addEventListener("keydown", function (event) {
+  var key = event.which.toString();
+  // 33 = Page Up, 34 = Page Down
+  var ctrlModifier = event.ctrlKey && key.match(/33|34/);
+
+  // Is this coming from an accordion header?
+  if (event.target.classList.contains("Accordion-trigger")) {
+    // 38 = Up, 40 = Down
+    if (key.match(/38|40/) || ctrlModifier) {
+      var index = triggers.indexOf(event.target);
+      var direction = key.match(/34|40/) ? 1 : -1;
+      var length = triggers.length;
+      var newIndex = (index + length + direction) % length;
+
+      triggers[newIndex].focus();
+    }
+  }
+});
+```
+
+---
+
+```js
+// Up/ Down arrow and Control + Page Up/ Page Down keyboard operations
+else if (key.match(/35|36/)) {
+      // 35 = End, 36 = Home keyboard operations
+      switch (key) {
+        // Go to first accordion
+        case "36":
+          triggers[0].focus();
+          break;
+        // Go to last accordion
+        case "35":
+          triggers[triggers.length - 1].focus();
+          break;
+      }
+      event.preventDefault();
+    }
+```
+
+---
+
+Basics/"low hanging fruit":
+
+- https://a11y.coffee/quick-wins/#4-missing-form-input-labels
+- focus order
+- links vs. buttons??? `role="button"` (https://accessibility-manual.dwp.gov.uk/guidance-for-your-job-role/software-engineer-or-frontend-developer)
+- heading hierarchy (why? so users can scan the headings to zoom in on what they're looking for/care about)
+- inputs + labels
+- keyboard focus
+- links make sense out of context
+
+---
+
+Advanced topics:
+
+- Sessions (unexpectedly logging users out)
+- Trap focus in modals
+- Announce dynamic content: aria-live
+- SPA advanced topics ([Gatsby user testing](https://www.gatsbyjs.com/blog/2019-07-11-user-testing-accessible-client-routing/))
+  - Without page refreshes, screen reader users may not be informed that the page has changed
+  - On client-side page transitions, focus to the top of the application (i.e. a parent wrapper element) to mimic a traditional browser refresh and announce new content in assistive technology
+
+--
+
+# 3. How to test `a11y`
+
+---
+
+# Tools for automatic error detection:
+
+- Axe,
+  ... etc
+
+---
+
+https://madalyn.dev/blog/a11y-testing-coffee/
+
+- navigating with your keyboard
+- using a screen reader: skimming https://web.archive.org/web/20160916181038/http://webaim.org/techniques/screenreader#linearization
+- turning your screen magnification way up (300%+)
+- using a site with audio muted
+- verifying that the prefers reduced motion setting is respected
 
 </SlidePage>
